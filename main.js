@@ -39,10 +39,43 @@ class BlockChain{
         this.chain.push(newBlock);
     }
 
+    isChainValid(){
+        // we are not going to start with block 0, since block 0 is genisis block.
+        for(let i=1;i<this.chain.length;i++){
+            const currentBlock = this.chain[i];
+            const previousBlock = this.chain[i-1];
+
+            // check if these blocks are properly linked together
+            if(currentBlock.hash !==currentBlock.calculateHash()){
+                return false;
+            }
+
+            // check if the currentBlocks previous hash matches the previous blocks hash
+            if(currentBlock.previousHash !== previousBlock.hash){
+                return false;
+            }
+
+            return true;
+        }
+    }
+
 }
 
 let mycoin = new BlockChain();
 mycoin.addBlock(new Block(1,"10/06/2017",{amount: 12}));
 mycoin.addBlock(new Block(2,"10/16/2017",{amount: 22}));
 
-console.log(JSON.stringify(mycoin,null,4));
+
+console.log("mycoin.isChainValid() : "+mycoin.isChainValid());
+
+// let try to tamper with our block chain
+mycoin.chain[1].data = {amount: 3000};
+
+// lets be clever and reclaculte the hash
+// this will still make the output to be false, since we have broken the relation with the previous block
+mycoin.chain[1].calculateHash();
+
+
+console.log("mycoin.isChainValid() : "+mycoin.isChainValid());
+
+//console.log(JSON.stringify(mycoin,null,4));
