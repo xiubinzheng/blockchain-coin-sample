@@ -2,9 +2,28 @@
 class LinkedNode
 {
     constructor(data){
-        this.next = null;
         this.data = data; 
+        this.next = null;
+        
     }
+
+    //      1,2,3   - append 0 ,->  0,1,2,3
+    appendToFront(data){
+        /*
+        let front = new LinkedNode(data);
+        front.next = this;
+        this.val = front.val;
+        */
+        let oldfront = Object.assign({}, this);
+        //console.log("oldfront.data "+oldfront.data);
+        this.data = data;
+        //console.log("oldfront.data after "+oldfront.data);
+        //console.log("this.data: "+this.data);
+        this.next = oldfront;
+        //console.log("after this.data: "+this.data);
+        //console.log("this.next.data: "+this.next.data);
+    }
+
 
     appendToTail(data){
         let end = new LinkedNode(data);
@@ -40,6 +59,8 @@ class LinkedNode
         n.data = next.data;
         return true;
     }
+
 }
+
 
 module.exports = LinkedNode;

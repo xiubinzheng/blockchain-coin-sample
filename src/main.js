@@ -1,21 +1,6 @@
 var BlockChain = require("./modules/BlockChain");
 var Block  = require("./modules/Block");
-var LinkedNode = require("./modules/LinkedNode");
 
-let node = new LinkedNode(1);
-node.appendToTail(2);
-node.appendToTail(3);
-node.appendToTail(4);
-node.appendToTail(5);
-
-console.log(JSON.stringify(node));
-console.log('----------------');
-console.log(JSON.stringify(node.deleteNode(node, 19)));
-console.log('----original node----');
-console.log(JSON.stringify(node));
-console.log('----Zzzzzzzzzz----');
-node.deleteMiddleNode(new LinkedNode(3));
-console.log(node.deleteMiddleNode(new LinkedNode(3)));
 
 var AES = require("crypto-js/aes");
 var SHA256 = require("crypto-js/sha256");
@@ -36,5 +21,7 @@ mycoin.chain[1].data = {amount: 3000};
 // this will still make the output to be false, since we have broken the relation with the previous block
 mycoin.chain[1].calculateHash();
 console.log("mycoin.isChainValid() : "+mycoin.isChainValid());
+
+
 
 //console.log(JSON.stringify(mycoin,null,4));
