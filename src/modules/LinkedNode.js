@@ -4,7 +4,57 @@ class LinkedNode
     constructor(data){
         this.data = data; 
         this.next = null;
+    }
+
+    search(data){
+        let temp = this;
+        while(temp.next!==null){
+            if(temp.data ===data){
+                return true;
+            }
+            temp = temp.next;
+        }
+        return false;
+    }
+
+    minimum(){
+        let min = Number.MAX_SAFE_INTEGER;
+        let temp = this;
+        while(temp.next!==null){ 
+            if(min > temp.data){
+                min = temp.data;
+            }
+            temp = temp.next;
+        }
+        return min;
         
+    }
+
+    maximum(){
+        let max = Number.MIN_SAFE_INTEGER;
+        let temp = this;
+        while(temp.next!==null){   
+            if(max < temp.data){
+                max = temp.data;
+            }
+            temp = temp.next;
+        }
+        return max;
+    }
+
+    getHeadNode(){
+        return this;
+    }
+
+    getTailNode(){
+        let temp = this;
+        //console.log("this is temp: "+JSON.stringify(temp));
+
+        while(temp.next!==null){
+            temp = temp.next;
+        }
+        //console.log("temp.next: "+JSON.stringify(temp.next));
+        return temp;
     }
 
     //      1,2,3   - append 0 ,->  0,1,2,3
@@ -24,7 +74,6 @@ class LinkedNode
         //console.log("this.next.data: "+this.next.data);
     }
 
-
     appendToTail(data){
         let end = new LinkedNode(data);
         let n = this;
@@ -37,7 +86,6 @@ class LinkedNode
     deleteNode(head, d){
         let n = head;
         if(n.data == d){
-            
             return head.next;
         }
         while(n.next!=null){
@@ -60,6 +108,30 @@ class LinkedNode
         return true;
     }
 
+    deleteFirstNode(){
+        let oldfront = Object.assign({},this);
+        this.data = this.next.data;
+        this.next = this.next.next;
+        return oldfront.data;
+    }
+
+    /*
+    null, 
+    1,2,3
+    */
+    deleteLastNode(){
+        let temp = this;
+        //console.log("this is temp: "+JSON.stringify(temp));
+
+        while(temp.next!==null && temp.next.next!==null){
+            temp = temp.next;
+        }
+        //console.log("temp.next: "+JSON.stringify(temp.next));
+
+        let ans = temp.next.data;
+        temp.next=null;
+        return ans;
+    }
 }
 
 
